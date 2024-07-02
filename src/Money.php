@@ -6,6 +6,7 @@ abstract class Money
 {
     protected int $amount;
     abstract public function times(int $multiplier): Money;
+    abstract public function currency(): string;
 
     public function equals(Object $object){
         if (!($object instanceof Money)){
