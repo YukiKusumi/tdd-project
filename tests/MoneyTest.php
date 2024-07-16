@@ -1,9 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Vendor\PhpTdd\Dollar;
-use Vendor\PhpTdd\Franc;
 use Vendor\PhpTdd\Money;
+use Vendor\PhpTdd\Bank;
 
 
 //memo: vendor/bin/phpunit tests
@@ -28,5 +27,14 @@ class MoneyTest extends TestCase
     public function testCurrency(){
         $this->assertEquals("USD", Money::dollar(1)->currency());
         $this->assertEquals("CHF", Money::franc(1)->currency());
+    }
+
+    public function testSimpleAddition()
+    {
+        $bank = new Bank();
+        $five = Money::dollar(5);
+        $sum = $five->plus($five);
+        $reduced = $bank->reduce($sum, "USD");
+        $this->assertEquals(Money::dollar(10), $reduced);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Vendor\PhpTdd;
 
-class Money
+class Money implements Expression
 {
     protected int $amount;
     protected string $currency;
@@ -38,5 +38,10 @@ class Money
     public function times(int $multiplier): Money
     {
         return new Money($this->amount * $multiplier, $this->currency);
+    }
+
+    public function plus(Money $other): Expression
+    {
+        return new Money($this->amount + $other->amount, $this->currency);
     }
 }
