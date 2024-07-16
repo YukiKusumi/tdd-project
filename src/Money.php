@@ -2,10 +2,9 @@
 
 namespace Vendor\PhpTdd;
 
-abstract class Money
+class Money
 {
     protected int $amount;
-    abstract public function times(int $multiplier): Money;
     protected string $currency;
 
     public function __construct(int $amount, string $currency)
@@ -18,7 +17,7 @@ abstract class Money
         if (!($object instanceof Money)){
             return false;
         }
-        return $this->amount === $object->amount && get_class($this) === get_class($object);
+        return $this->amount === $object->amount && $this->currency == $object->currency;
     }
 
     public static function dollar(int $amount): Money
@@ -34,5 +33,10 @@ abstract class Money
     public function currency(): string
     {
         return $this->currency;
+    }
+
+    public function times(int $multiplier): Money
+    {
+        return new Money($this->amount * $multiplier, $this->currency);
     }
 }
