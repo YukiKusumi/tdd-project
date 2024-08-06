@@ -45,9 +45,9 @@ class Money implements Expression
         return new Sum($this, $other);
     }
 
-    public function reduce(string $to): Money
+    public function reduce(Bank $bank, string $to): Money
     {
-        $rate = ($this->currency == "CHF" && $to == "USD") ? 2 : 1;
+        $rate = $bank->rate($this->currency, $to);
         return new Money($this->amount / $rate, $to);
     }
 }
