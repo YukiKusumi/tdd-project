@@ -4,7 +4,7 @@ namespace Vendor\PhpTdd;
 
 class Money implements Expression
 {
-    protected int $amount;
+    public int $amount;
     protected string $currency;
 
     public function __construct(int $amount, string $currency)
@@ -42,6 +42,11 @@ class Money implements Expression
 
     public function plus(Money $other): Expression
     {
-        return new Money($this->amount + $other->amount, $this->currency);
+        return new Sum($this, $other);
+    }
+
+    public function reduce(string $to): Money
+    {
+        return $this;
     }
 }
