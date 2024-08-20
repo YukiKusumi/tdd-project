@@ -2,6 +2,8 @@
 
 namespace Vendor\PhpTdd;
 
+use Cassandra\Set;
+
 class Sum implements Expression
 {
     public Expression $augend;
@@ -22,6 +24,11 @@ class Sum implements Expression
         $amount = $this->augend->reduce($bank, $to)->amount
             + $this->addend->reduce($bank, $to)->amount;
         return new Money($amount, $to);
+    }
+
+    public function times(int $multiplier): Expression
+    {
+        return new Sum($this->augend->times($multiplier), $this->addend->times($multiplier));
     }
 }
 
