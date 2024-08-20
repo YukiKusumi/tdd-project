@@ -14,7 +14,7 @@ class Sum implements Expression
 
     public function plus(Expression $addend): ?Expression
     {
-        return null;
+        return new Sum($this, $addend);
     }
 
     public function reduce(Bank $bank, string $to): Money
