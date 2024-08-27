@@ -4,6 +4,7 @@ use PHPUnit\Framework\TestCase;
 use Vendor\PhpTdd\Money;
 use Vendor\PhpTdd\Bank;
 use Vendor\PhpTdd\Sum;
+use Vendor\PhpTdd\WasRun;
 
 
 //memo: vendor/bin/phpunit tests
@@ -114,5 +115,29 @@ class MoneyTest extends TestCase
 
         $result = $bank->reduce($sum, "USD");
         $this->assertEquals(Money::dollar(20), $result);
+    }
+
+
+
+
+    //WasRunクラスを対象としたテスト
+    public function testRun() {
+        $test = new WasRun("testMethod");
+
+        $this->assertEquals(null, $test->wasRun);
+        echo $test->wasRun ? 'true' : 'false';
+        echo "\n";
+
+        $test->run();
+
+        $this->assertEquals(1, $test->wasRun);
+        echo $test->wasRun;
+    }
+    public function testRunning()
+    {
+        $test = new WasRun("testMethod");
+        $this->assertFalse($test->wasRun);
+        $test->run();
+        $this->assertTrue($test->wasRun);
     }
 }
